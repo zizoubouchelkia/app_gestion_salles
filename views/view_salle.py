@@ -68,7 +68,18 @@ class ViewSalle(ctk.CTk):
             self.lister_salles()
 
     def modifier_salle(self):
-        pass
+        salle = Salle(
+            self.entry_code.get(),
+            self.entry_libelle.get(),
+            self.entry_type.get(),
+            int(self.entry_capacite.get())
+        )
+
+        ok, message = self.service_salle.modifier_salle(salle)
+        print(message)
+
+        if ok:
+            self.lister_salles()
 
     def supprimer_salle(self):
         pass
