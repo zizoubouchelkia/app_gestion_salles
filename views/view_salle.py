@@ -64,6 +64,9 @@ class ViewSalle(ctk.CTk):
         ok, message = self.service_salle.ajouter_salle(salle)
         print(message)
 
+        if ok:
+            self.lister_salles()
+
     def modifier_salle(self):
         pass
 
