@@ -44,6 +44,11 @@ class ViewSalle(ctk.CTk):
 
         self.tree.pack(fill="both", expand=True, pady=10)
 
+        self.tree.column("code", width=100)
+        self.tree.column("libelle", width=200)
+        self.tree.column("type", width=150)
+        self.tree.column("capacite", width=100)
+
         self.lister_salles()
 
     def lister_salles(self):
