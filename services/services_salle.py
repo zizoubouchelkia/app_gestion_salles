@@ -6,20 +6,20 @@ class ServiceSalle:
         self.dao_salle = DataSalle()
 
     def ajouter_salle(self, salle):
-        if not salle.code or not salle.libelle or not salle.type or not salle.capacite:
+        if not salle.code or not salle.libelle or not salle.type:
             return False, "Tous les champs sont obligatoires"
 
-        if int(salle.capacite) < 1:
+        if salle.capacite is None or int(salle.capacite) < 1:
             return False, "Capacité invalide"
 
         self.dao_salle.insert_salle(salle)
         return True, "Salle ajoutée avec succès"
 
     def modifier_salle(self, salle):
-        if not salle.code or not salle.libelle or not salle.type or not salle.capacite:
+        if not salle.code or not salle.libelle or not salle.type:
             return False, "Tous les champs sont obligatoires"
 
-        if int(salle.capacite) < 1:
+        if salle.capacite is None or int(salle.capacite) < 1:
             return False, "Capacité invalide"
 
         self.dao_salle.update_salle(salle)
