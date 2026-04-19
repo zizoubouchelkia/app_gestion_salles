@@ -1,0 +1,1 @@
+# classe Salle (a implementer)
