@@ -88,4 +88,17 @@ class ViewSalle(ctk.CTk):
         self.lister_salles()
 
     def rechercher_salle(self):
-        pass
+        code = self.entry_code.get()
+        salle = self.service_salle.rechercher_salle(code)
+
+        if salle:
+            self.entry_libelle.delete(0, "end")
+            self.entry_libelle.insert(0, salle.libelle)
+
+            self.entry_type.delete(0, "end")
+            self.entry_type.insert(0, salle.type)
+
+            self.entry_capacite.delete(0, "end")
+            self.entry_capacite.insert(0, str(salle.capacite))
+        else:
+            print("Salle non trouvée")
