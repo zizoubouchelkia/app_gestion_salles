@@ -59,32 +59,40 @@ class ViewSalle(ctk.CTk):
             self.tree.insert("", "end", values=(s.code, s.libelle, s.type, s.capacite))
 
     def ajouter_salle(self):
-        salle = Salle(
-            self.entry_code.get(),
-            self.entry_libelle.get(),
-            self.entry_type.get(),
-            int(self.entry_capacite.get())
-        )
+        try:
+            salle = Salle(
+                self.entry_code.get(),
+                self.entry_libelle.get(),
+                self.entry_type.get(),
+                int(self.entry_capacite.get())
+            )
 
-        ok, message = self.service_salle.ajouter_salle(salle)
-        print(message)
+            ok, message = self.service_salle.ajouter_salle(salle)
+            print(message)
 
-        if ok:
-            self.lister_salles()
+            if ok:
+                self.lister_salles()
+                self.vider_champs()
+        except ValueError:
+            print("La capacité doit être un nombre")
 
     def modifier_salle(self):
-        salle = Salle(
-            self.entry_code.get(),
-            self.entry_libelle.get(),
-            self.entry_type.get(),
-            int(self.entry_capacite.get())
-        )
+        try:
+            salle = Salle(
+                self.entry_code.get(),
+                self.entry_libelle.get(),
+                self.entry_type.get(),
+                int(self.entry_capacite.get())
+            )
 
-        ok, message = self.service_salle.modifier_salle(salle)
-        print(message)
+            ok, message = self.service_salle.modifier_salle(salle)
+            print(message)
 
-        if ok:
-            self.lister_salles()
+            if ok:
+                self.lister_salles()
+                self.vider_champs()
+        except ValueError:
+            print("La capacité doit être un nombre")
 
     def supprimer_salle(self):
         code = self.entry_code.get()
@@ -107,3 +115,9 @@ class ViewSalle(ctk.CTk):
             self.entry_capacite.insert(0, str(salle.capacite))
         else:
             print("Salle non trouvée")
+
+    def vider_champs(self):
+        self.entry_code.delete(0, "end")
+        self.entry_libelle.delete(0, "end")
+        self.entry_type.delete(0, "end")
+        self.entry_capacite.delete(0, "end")
