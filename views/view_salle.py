@@ -1,6 +1,7 @@
 import customtkinter as ctk
 from services.services_salle import ServiceSalle
 from models.salle import Salle
+from tkinter import ttk
 
 
 class ViewSalle(ctk.CTk):
@@ -33,6 +34,24 @@ class ViewSalle(ctk.CTk):
         ctk.CTkButton(self.cadreActions, text="Modifier", command=self.modifier_salle).pack(side="left", padx=5)
         ctk.CTkButton(self.cadreActions, text="Supprimer", command=self.supprimer_salle).pack(side="left", padx=5)
         ctk.CTkButton(self.cadreActions, text="Rechercher", command=self.rechercher_salle).pack(side="left", padx=5)
+
+        self.tree = ttk.Treeview(self, columns=("code", "libelle", "type", "capacite"), show="headings")
+
+        self.tree.heading("code", text="CODE")
+        self.tree.heading("libelle", text="LIBELLE")
+        self.tree.heading("type", text="TYPE")
+        self.tree.heading("capacite", text="CAPACITE")
+
+        self.tree.pack(fill="both", expand=True, pady=10)
+
+        self.lister_salles()
+
+    def lister_salles(self):
+        self.tree.delete(*self.tree.get_children())
+
+        liste = self.service_salle.recuperer_salles()
+        for s in liste:
+            self.tree.insert("", "end", values=(s.code, s.libelle, s.type, s.capacite))
 
     def ajouter_salle(self):
         salle = Salle(
