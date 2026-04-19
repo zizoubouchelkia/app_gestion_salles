@@ -82,7 +82,10 @@ class ViewSalle(ctk.CTk):
             self.lister_salles()
 
     def supprimer_salle(self):
-        pass
+        code = self.entry_code.get()
+        self.service_salle.supprimer_salle(code)
+        print("Salle supprimée")
+        self.lister_salles()
 
     def rechercher_salle(self):
         pass
