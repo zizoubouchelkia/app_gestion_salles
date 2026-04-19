@@ -1,5 +1,6 @@
 import customtkinter as ctk
 from services.services_salle import ServiceSalle
+from models.salle import Salle
 
 
 class ViewSalle(ctk.CTk):
@@ -34,7 +35,15 @@ class ViewSalle(ctk.CTk):
         ctk.CTkButton(self.cadreActions, text="Rechercher", command=self.rechercher_salle).pack(side="left", padx=5)
 
     def ajouter_salle(self):
-        pass
+        salle = Salle(
+            self.entry_code.get(),
+            self.entry_libelle.get(),
+            self.entry_type.get(),
+            int(self.entry_capacite.get())
+        )
+
+        ok, message = self.service_salle.ajouter_salle(salle)
+        print(message)
 
     def modifier_salle(self):
         pass
